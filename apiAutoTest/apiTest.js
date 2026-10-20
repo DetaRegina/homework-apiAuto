@@ -100,7 +100,7 @@ describe("API Auto Testing", function () {
 
   });
 
-  it("[NEG] Add User", async function () {
+  it("[NEG] Add User - Existing Username", async function () {
     const existUsername = "Deta";
     const response = await fetch(
       "https://belajar-bareng.onrender.com/api/add-user",
