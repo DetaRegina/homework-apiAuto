@@ -67,6 +67,7 @@ describe("API Auto Testing", function () {
   });
 
   it("Add User", async function () {
+    const addUsername = "DETA_" + Date.now();
     const response = await fetch(
       "https://belajar-bareng.onrender.com/api/add-user",
       {
@@ -76,7 +77,7 @@ describe("API Auto Testing", function () {
         },
         method: "POST",
         body: JSON.stringify({
-          username: "DETA",
+          username: addUsername,
           age: 22,
         }),
       }
@@ -85,14 +86,14 @@ describe("API Auto Testing", function () {
     const data = await response.json();
     console.log(data);
 
-    // Assert 1: Check status code = 200
-    expect(response.status).to.equal(200);
+    // Assert 1: Check status code = 201
+    expect(response.status).to.equal(201);
 
     // Assert 2: Check the property
     expect(data).to.have.all.keys("status", "userId","username","age", "message");
 
-    // Assert 3: Check message "User successfully added, Hi DETA!"
-    expect(data.message).to.eql("User successfully added, Hi DETA!");
+    // Assert 3: Check message "User successfully added, Hi DETA New Name!"
+    expect(data.message).to.eql("User successfully added, Hi " + addUsername + "!");
 
     // Assert 4: Check the age should be Number and > 0
     expect(data.age).to.be.a("number").that.is.above(0);
