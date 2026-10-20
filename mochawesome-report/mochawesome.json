@@ -1,0 +1,162 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 3,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-10-20T16:41:26.872Z",
+    "end": "2026-10-20T16:41:29.159Z",
+    "duration": 2287,
+    "testsRegistered": 4,
+    "passPercent": 75,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "32dbca91-b059-48c8-9a37-4cfdf48476f3",
+      "title": "",
+      "fullFile": "C:\\QA Course Digiskola\\homework_apiAuto\\apiAutoTest\\apiTest.js",
+      "file": "\\apiAutoTest\\apiTest.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f65d3e39-4f9c-4edb-b2cf-7de8cd24a0ab",
+          "title": "API Auto Testing",
+          "fullFile": "C:\\QA Course Digiskola\\homework_apiAuto\\apiAutoTest\\apiTest.js",
+          "file": "\\apiAutoTest\\apiTest.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Valid Login",
+              "fullTitle": "API Auto Testing Valid Login",
+              "timedOut": false,
+              "duration": 1062,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await fetch(\n  \"https://belajar-bareng.onrender.com/api/login\",\n  {\n    headers: {\n      \"Content-Type\": \"application/json\",\n    },\n    method: \"POST\",\n    body: JSON.stringify({\n      username: \"admin\",\n      password: \"admin\",\n    }),\n  }\n);\n// Assert 1: Check status code = 200\nexpect(response.status).to.equal(200);\nconst data = await response.json();\n// Assert 2: Check property\nexpect(data).to.have.all.keys(\"message\", \"status\", \"token\");\n// Assert 3: Check message \"Login successful\"\nexpect(data.message).to.eql(\"Login successful\");\n// Assert 4: Check token is not empty\nexpect(data.token).to.be.a(\"string\").that.is.not.empty;\n//Save Token\ntoken = data.token;",
+              "err": {},
+              "uuid": "54ec9441-ac1d-4b8a-a008-a5c126752c3d",
+              "parentUUID": "f65d3e39-4f9c-4edb-b2cf-7de8cd24a0ab",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Get User",
+              "fullTitle": "API Auto Testing Get User",
+              "timedOut": false,
+              "duration": 426,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await fetch(\n  \"https://belajar-bareng.onrender.com/api/users\",\n  {\n    headers: {\n      \"Content-Type\": \"application/json\",\n      authorization: `Bearer ${token}`,\n    },\n  }\n);\nconst data = await response.json();\n// Assert 1: Check status code = 200\nexpect(response.status).to.equal(200);\n// Assert 2: Check the property\nexpect(data.users[0]).to.have.property('userId');\nexpect(data.users[0]).to.have.property('username');\nexpect(data.users[0]).to.have.property('age');\n// Assert 3: Check the property is not empty\nexpect(data.users).to.be.an('array').that.is.not.empty;\n// Assert 4: Check the username should be String\nexpect(data.users[0].username).to.be.a(\"string\");\n// Assert 5: Check the age should be Number and > 0\nexpect(data.users[0].age).to.be.a(\"number\").that.is.above(0);",
+              "err": {},
+              "uuid": "8b9eaf57-a91d-4c79-be67-8770d0b85d33",
+              "parentUUID": "f65d3e39-4f9c-4edb-b2cf-7de8cd24a0ab",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Add User",
+              "fullTitle": "API Auto Testing Add User",
+              "timedOut": false,
+              "duration": 479,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const response = await fetch(\n  \"https://belajar-bareng.onrender.com/api/add-user\",\n  {\n    headers: {\n      \"Content-Type\": \"application/json\",\n      Authorization: `Bearer ${token}`,\n    },\n    method: \"POST\",\n    body: JSON.stringify({\n      username: \"DETA\",\n      age: 22,\n    }),\n  }\n);\nconst data = await response.json();\nconsole.log(data);\n// Assert 1: Check status code = 200\nexpect(response.status).to.equal(200);\n// Assert 2: Check the property\nexpect(data).to.have.all.keys(\"status\", \"userId\",\"username\",\"age\", \"message\");\n// Assert 3: Check message \"User successfully added, Hi DETA!\"\nexpect(data.message).to.eql(\"User successfully added, Hi DETA!\");\n// Assert 4: Check the age should be Number and > 0\nexpect(data.age).to.be.a(\"number\").that.is.above(0);",
+              "err": {
+                "message": "AssertionError: expected 400 to equal 200",
+                "estack": "AssertionError: expected 400 to equal 200\n    at Context.<anonymous> (apiAutoTest\\apiTest.js:89:32)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": "- 400\n+ 200\n"
+              },
+              "uuid": "7a780f9a-af2e-4318-8f0f-fee19ca9037b",
+              "parentUUID": "f65d3e39-4f9c-4edb-b2cf-7de8cd24a0ab",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[NEG] Add User",
+              "fullTitle": "API Auto Testing [NEG] Add User",
+              "timedOut": false,
+              "duration": 304,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await fetch(\n  \"https://belajar-bareng.onrender.com/api/add-user\",\n  {\n    headers: {\n      \"Content-Type\": \"application/json\",\n      authorization: `Bearer ${token}`,\n    },\n    method: \"POST\",\n    body: JSON.stringify({\n      // blank validation\n    }),\n  }\n);\nconst data = await response.json();\n// Assert 1: Check status code = 400\nexpect(response.status).to.equal(400);\n// // Assert 2: Check the eror message\n// expect(data).to.have.property(\"message\").that.is.a(\"string\");",
+              "err": {},
+              "uuid": "485e0dae-9389-474d-a89b-90e40fa73037",
+              "parentUUID": "f65d3e39-4f9c-4edb-b2cf-7de8cd24a0ab",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "54ec9441-ac1d-4b8a-a008-a5c126752c3d",
+            "8b9eaf57-a91d-4c79-be67-8770d0b85d33",
+            "485e0dae-9389-474d-a89b-90e40fa73037"
+          ],
+          "failures": [
+            "7a780f9a-af2e-4318-8f0f-fee19ca9037b"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 2271,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "12.0.3"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "8.1.1"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.3.2"
+    }
+  }
+}
