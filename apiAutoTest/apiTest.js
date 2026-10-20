@@ -101,6 +101,7 @@ describe("API Auto Testing", function () {
   });
 
   it("[NEG] Add User", async function () {
+    const existUsername = "Deta";
     const response = await fetch(
       "https://belajar-bareng.onrender.com/api/add-user",
       {
@@ -110,7 +111,8 @@ describe("API Auto Testing", function () {
         },
         method: "POST",
         body: JSON.stringify({
-          // blank validation
+          username: existUsername,
+          age: 22,
         }),
       }
     );
@@ -120,8 +122,8 @@ describe("API Auto Testing", function () {
     // Assert 1: Check status code = 400
     expect(response.status).to.equal(400);
 
-    // // Assert 2: Check the eror message
-    // expect(data).to.have.property("message").that.is.a("string");
+    // Assert 2: Check the eror message
+    expect(data.message).to.eql(`Username "${existUsername}" already exists!`);
   });
 
 });
