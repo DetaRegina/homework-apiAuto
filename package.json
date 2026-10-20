@@ -1,0 +1,22 @@
+{
+  "name": "homework_apiauto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha apiAutoTest --reporter mochawesome",
+    "report": "start mochawesome-report/mochawesome.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "mocha": "^12.0.3",
+    "mochawesome": "^8.0.1"
+  },
+  "devDependencies": {
+    "chai": "^6.2.2"
+  }
+}
